@@ -22,7 +22,7 @@ class BaseSandBox:
         raise NotImplementedError
 
 class SandBoxTest(BaseSandBox):
-    def __init__(self, module, in_dim, num_iterations=100, warm_iter=None, device="cuda"):
+    def __init__(self, module, in_dim, num_iterations=1000, warm_iter=None, device="cuda"):
         super(SandBoxTest, self).__init__(module, in_dim, num_iterations, warm_iter, device)
 
     def run(self):
@@ -36,7 +36,7 @@ class SandBoxTest(BaseSandBox):
             _ = self.module(x)
 
         self.timer.stop()
-        total_time = self.num_iter / self.timer.get_time()
+        total_time = (self.num_iter - self.warmup_iter)/ self.timer.get_time()
         print(f"Avg Speed: {total_time:.2f} iter/s")
 
 if __name__ == "__main__":
