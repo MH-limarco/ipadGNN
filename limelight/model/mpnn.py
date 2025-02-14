@@ -1,4 +1,6 @@
 
+__all__ = ["SingleMPNN"]
+
 from torch import nn
 from torch_geometric import nn as pygnn
 from torch_geometric.data import Data
@@ -9,8 +11,6 @@ import argparse
 import inspect
 
 from limelight.utils import read_args
-
-__all__ = ["SingleMPNN"]
 
 class SingleMPNN(nn.Module):
     @overload

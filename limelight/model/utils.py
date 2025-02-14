@@ -101,7 +101,6 @@ def get_normalize(name: Optional[str] = None, return_class: bool = False, in_cha
     return normalize_cls
 
 
-
 if __name__ == "__main__":
     import torch
     x = torch.randn(2, 64)

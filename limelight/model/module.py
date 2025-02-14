@@ -1,16 +1,17 @@
 
+__all__ = ["NormModule", "Boosting"]
+
 import torch
 import torch_geometric
 import torch.nn.functional as F
 from torch import nn
 
-
 from typing import Dict
 import argparse
 import inspect
 
-from limelight.model.nn.utils import get_activation, get_normalize
-from limelight.model.nn.mpnn import SingleMPNN
+from limelight.model.utils import get_activation, get_normalize
+from limelight.model.mpnn import SingleMPNN
 from limelight.utils import read_args
 
 MPNNs_map = torch_geometric.nn.conv.__all__
@@ -147,8 +148,6 @@ class Boosting(BaseModule):
         raise NotImplementedError
 
 if __name__ == "__main__":
-    from torch_geometric.nn import HeteroConv, PointGNNConv, PDNConv
-
     model_map = {"in_channels": 64, "hidden_channels": 256,
                  "out_channels": 1, "num_layers": 3,
                  "conv_type": "linear", "heads": 4,
