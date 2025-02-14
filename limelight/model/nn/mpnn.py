@@ -5,7 +5,10 @@ from torch_geometric.data import Data
 import torch
 
 from typing import Union, overload, Dict, Any
-import argparse, inspect
+import argparse
+import inspect
+
+from limelight.utils import read_args
 
 __all__ = ["SingleMPNN"]
 
@@ -20,31 +23,31 @@ class SingleMPNN(nn.Module):
     def __init__(self, args, in_channels, out_channels, **kwargs):
         super(SingleMPNN, self).__init__()
 
-        if isinstance(args, argparse.Namespace):
-            args = vars(args)
-
+        args = read_args(args)
         self.conv_type = args.get("conv_type", "GCNConv")
 
         if hasattr(pygnn.conv, self.conv_type):
-            _conv = getattr(pygnn.conv, self.conv_type)
+            layer_cls = getattr(pygnn.conv, self.conv_type)
         else:
             raise ValueError(f"Unknown gnn layer: {self.conv_type}. Available: {dir(pygnn.conv)}")
 
-        conv_params = inspect.signature(_conv.__init__).parameters
+        layer_params = inspect.signature(layer_cls.__init__).parameters
 
-        if "nn" in conv_params:
+        if "nn" in layer_params:
             raise ValueError(f"Not support GINConv and GINEConv yet.")
-        elif "conv" in conv_params:
-            raise ValueError(f"Not support GPSConv yet.")
-        elif "heads" in conv_params:
+        elif "conv" in layer_params:
+            raise ValueError(f"Not support GPSConv and DirGNNConv yet.")
+        elif "phi" in layer_params:
+            raise ValueError(f"Not support AntiSymmetricConv yet.")
+        elif "heads" in layer_params:
             args["heads"] = args.get("heads", 1)
             out_channels = out_channels // args["heads"]
 
-        kwargs.update({k: v for k, v in args.items() if k in conv_params and k not in ["in_channels", "out_channels"]})
-        self.conv = _conv(in_channels, out_channels, **kwargs)
+        kwargs.update({k: v for k, v in args.items() if k in layer_params and k not in ["in_channels", "out_channels"]})
+        self.layer = layer_cls(in_channels, out_channels, **kwargs)
 
     def reset_parameters(self):
-        self.conv.reset_parameters()
+        self.layer.reset_parameters()
 
     @overload
     def forward(self, input_data:torch.Tensor, edge_index:torch.Tensor, **kwargs): ...
@@ -59,11 +62,11 @@ class SingleMPNN(nn.Module):
         else:
             x = input_data
 
-        return self.conv(x, edge_index, **kwargs)
+        return self.layer(x, edge_index, **kwargs)
 
 
 if __name__ == "__main__":
-    _args = {"conv_type": "GATv2Conv",
+    _args = {"conv_type": "GINConv",
              "heads": 4,
              "K": 1,}
     dim = 16

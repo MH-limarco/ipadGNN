@@ -1,12 +1,14 @@
 
-__all__ = ["get_activation"]
+__all__ = ["get_activation", "get_normalize"]
 
 import torch.nn as nn
 import torch.nn.functional as F
 from typing import Union, Type, Optional, overload
 
+DEFAULT_ACTIVATION = "relu"
+DEFAULT_NORMALIZE = "identity"
 
-_activation_map = {
+activation_map = {
     "identity": nn.Identity,
     "relu": nn.ReLU,
     "leaky_relu": nn.LeakyReLU,
@@ -19,6 +21,13 @@ _activation_map = {
     "softmax": lambda: nn.Softmax(dim=-1),
     "log_softmax": lambda: nn.LogSoftmax(dim=-1),
     "swiglu": lambda in_channels, out_channels=None: SWiGLU(in_channels, out_channels)
+}
+
+normalize_map = {
+    "identity": nn.Identity,
+    "batch": nn.BatchNorm1d,
+    "layer": nn.LayerNorm,
+    "instance": nn.InstanceNorm1d,
 }
 
 
@@ -39,6 +48,13 @@ class SWiGLU(nn.Module):
         gate, x = self.fc(x).chunk(2, dim=-1)
         return F.silu(gate) * x
 
+def init_flow(cls_map, default_name, name):
+    name = default_name if name is None else name.lower()
+    if name not in cls_map:
+        raise ValueError(f"Unknown function: {name}. "
+                         f"Available options: {list(cls_map.keys())}")
+    return cls_map[name], name
+
 
 @overload
 def get_activation(name: str, return_class: bool) -> Type[nn.Module]: ...
@@ -54,19 +70,36 @@ def get_activation(name: Optional[str] = None, return_class: bool = False, **kwa
     :param return_class: 是否回傳 nn.Module 類別，而不是已初始化的函數
     :return: 對應的 nn.Module 激活函數或類別
     """
-    name = "identity" if name is None else name.lower()
-    if name not in _activation_map:
-        raise ValueError(f"Unknown activation function: {name}. "
-                         f"Available options: {list(_activation_map.keys())}")
-
-    activation_cls = _activation_map[name]
+    activation_cls, name = init_flow(activation_map, DEFAULT_ACTIVATION, name)
 
     if name == "swiglu" and not return_class:
         if "in_channels" not in kwargs:
             raise ValueError("SWiGLU requires `in_channels` and `out_channels` as an argument.")
         return activation_cls(**kwargs)
-
     return activation_cls if return_class else activation_cls()
+
+
+@overload
+def get_normalize(name: str, return_class: bool = False, in_channels: int = None, **kwargs) -> nn.Module: ...
+
+def get_normalize(name: Optional[str] = None, return_class: bool = False, in_channels: int = None, **kwargs) -> Union[nn.Module, Type[nn.Module], None]:
+    """
+    根據名稱返回對應的正規層
+
+    :param name: 正規層名稱（大小寫皆可），如果為 None 則回傳 None
+    :param return_class: 是否回傳 nn.Module 類別，而不是已初始化的函數
+    :param in_channels: 正規層的輸入維度
+    :return: 對應的 nn.Module 正規層或類別
+    """
+    normalize_cls, name = init_flow(normalize_map, DEFAULT_NORMALIZE, name)
+
+    if not return_class:
+        if in_channels is None:
+            raise ValueError("Normalization layer requires `in_channels` as an argument.")
+        return normalize_cls(in_channels, **kwargs)
+
+    return normalize_cls
+
 
 
 if __name__ == "__main__":
@@ -74,3 +107,6 @@ if __name__ == "__main__":
     x = torch.randn(2, 64)
     act = get_activation("SWiGLU", in_channels=64, out_channels=128)
     print(act(x).shape)
+
+    norm = get_normalize("layer", in_channels=64)
+    print(norm(x).shape)
