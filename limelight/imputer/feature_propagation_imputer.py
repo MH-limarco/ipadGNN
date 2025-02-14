@@ -1,4 +1,5 @@
-from lib2to3.pgen2.token import NUMBER
+
+__all__ = ['FeaturePropagationFilling']
 
 from torch_geometric.nn import SimpleConv
 from torch_geometric.utils import get_laplacian
