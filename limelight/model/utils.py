@@ -5,8 +5,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Union, Type, Optional, overload
 
-DEFAULT_ACTIVATION = "relu"
-DEFAULT_NORMALIZE = "identity"
+from limelight.api import parse_config
+
+config = parse_config()
+DEFAULT_ACTIVATION = config.activation
+DEFAULT_NORMALIZE = config.normalize
 
 activation_map = {
     "identity": nn.Identity,
@@ -48,11 +51,18 @@ class SWiGLU(nn.Module):
         gate, x = self.fc(x).chunk(2, dim=-1)
         return F.silu(gate) * x
 
-def init_flow(cls_map, default_name, name):
+def init_flow(cls_map, default_name: str, name: str):
+    default_name = default_name.lower()
+    if default_name not in cls_map:
+        pass
+        #raise ValueError(f"Unknown Default function: {default_name}. "
+        #                 f"Available options: {list(cls_map.keys())}")
+
     name = default_name if name is None else name.lower()
     if name not in cls_map:
         raise ValueError(f"Unknown function: {name}. "
                          f"Available options: {list(cls_map.keys())}")
+
     return cls_map[name], name
 
 
@@ -76,6 +86,7 @@ def get_activation(name: Optional[str] = None, return_class: bool = False, **kwa
         if "in_channels" not in kwargs:
             raise ValueError("SWiGLU requires `in_channels` and `out_channels` as an argument.")
         return activation_cls(**kwargs)
+
     return activation_cls if return_class else activation_cls()
 
 

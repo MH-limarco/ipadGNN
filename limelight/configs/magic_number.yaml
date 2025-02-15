@@ -1,0 +1,36 @@
+
+
+dataset:
+    utils:
+        dir: "row_data"
+
+
+imputer:
+    feature_propagation_imputer:
+        num_iterations: 40
+
+    simple_imputer:
+        fix_value: 0
+
+
+model:
+    module:
+        num_layer: 2
+        dropout: 0.5
+
+    sandbox:
+        number_node: 128
+        number_edge: 1000
+        number_iterations: 1000
+
+    utils:
+        activation: relu
+        normalize: identity
+
+utils:
+    tool:
+        seed: 42
+
+    logger:
+        log_dir: "log"
+        log_level: "INFO"

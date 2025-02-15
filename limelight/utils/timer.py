@@ -4,7 +4,6 @@
 
 __all__ = ["Timer", "MultiTimer"]
 
-
 import time
 
 timer_func = time.perf_counter

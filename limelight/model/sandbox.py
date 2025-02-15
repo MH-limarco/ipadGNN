@@ -1,13 +1,20 @@
 
+
 import torch
 import torch_geometric
 from tqdm import tqdm
 
 from limelight.model import *
-from limelight.utils.timer import Timer
+from limelight.utils import Timer
+from limelight.api import parse_config
+
+config = parse_config()
+NUMBER_NODE = config.number_node
+NUMBER_EDGE = config.number_edge
+NUMBER_ITERATIONS = config.number_iterations
 
 class BaseSandBox:
-    def __init__(self, module, in_dim, num_iterations=1000, warm_iter=None, device="cuda"):
+    def __init__(self, module: torch.nn.Module, in_dim, num_iterations=NUMBER_ITERATIONS, warm_iter=None, device="cuda"):
         self.timer = Timer()
         self.device = "cuda" if torch.cuda.is_available() and device.lower() == "cuda" else "cpu"
 
@@ -15,7 +22,7 @@ class BaseSandBox:
         self.in_dim = in_dim
 
         self.num_iter = num_iterations
-        self.warmup_iter = warm_iter if warm_iter is not None else self.num_iter // 10
+        self.warmup_iter = warm_iter if warm_iter is not None else round(self.num_iter * 0.1)
 
         print(f"\nWarm-up iterations: {self.warmup_iter}")
 
@@ -38,12 +45,12 @@ class BaseSandBox:
 
 class LayerSandBoxTest(BaseSandBox):
     def build_input(self):
-        return torch.rand(128, self.in_dim).to(self.device)
+        return torch.rand(NUMBER_NODE, self.in_dim).to(self.device)
 
 class ModuleSandBoxTest(BaseSandBox):
     def build_input(self):
-        return torch_geometric.data.Data(x=torch.rand(128, self.in_dim).to(self.device),
-                                         edge_index=torch.randint(0, 128, (2, 128)).to(self.device))
+        return torch_geometric.data.Data(x=torch.rand(NUMBER_NODE, self.in_dim).to(self.device),
+                                         edge_index=torch.randint(0, NUMBER_NODE, (2, NUMBER_EDGE)).to(self.device))
 
 if __name__ == "__main__":
     test = LayerSandBoxTest(get_activation("swiglu", in_channels=128, out_channels=128), 128)

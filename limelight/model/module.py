@@ -12,7 +12,7 @@ import inspect
 
 from limelight.model.utils import get_activation, get_normalize
 from limelight.model.mpnn import SingleMPNN
-from limelight.utils import read_args
+from limelight.utils import parse_args
 
 MPNNs_map = torch_geometric.nn.conv.__all__
 
@@ -22,7 +22,7 @@ DEFAULT_DROPOUT = 0.5
 class BaseModule(nn.Module):
     def __init__(self, args: [Dict, argparse.Namespace], **kwargs):
         super(BaseModule, self).__init__()
-        self.args = read_args(args)
+        self.args = parse_args(args)
         if not (self.args["conv_type"] in MPNNs_map or
                 self.args["conv_type"].lower() in ["mlp", "linear"]):
             raise ValueError(f"Unknown layer: {self.args['conv_type']}. "

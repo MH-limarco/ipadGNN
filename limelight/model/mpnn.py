@@ -10,7 +10,7 @@ from typing import Union, overload, Dict, Any
 import argparse
 import inspect
 
-from limelight.utils import read_args
+from limelight.utils import parse_args
 
 class SingleMPNN(nn.Module):
     @overload
@@ -23,7 +23,7 @@ class SingleMPNN(nn.Module):
     def __init__(self, args, in_channels, out_channels, **kwargs):
         super(SingleMPNN, self).__init__()
 
-        args = read_args(args)
+        args = parse_args(args)
         self.conv_type = args.get("conv_type", "GCNConv")
 
         if hasattr(pygnn.conv, self.conv_type):
