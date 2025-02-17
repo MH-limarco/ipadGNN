@@ -1,5 +1,5 @@
 
-__all__ = ["NormModule", "Boosting"]
+__all__ = ["NormModule", "BoostModule"]
 
 import torch
 import torch_geometric
@@ -146,12 +146,13 @@ class NormModule(BaseModule):
         return self.pred_layer(x_out)
 
 
-class Boosting(BaseModule):
+class BoostModule(BaseModule):
     pass
 
 if __name__ == "__main__":
     model_map = {"in_channels": 64, "hidden_channels": 256,
                  "out_channels": 1, "num_layers": 3,
+                 "res": True, "jk": False, "pre_linear": False,
                  "conv_type": "linear", "heads": 4,
                  "K": 1,
                  "norm_type": "layer", "act_type": "swiglu"}
