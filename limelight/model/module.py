@@ -14,23 +14,26 @@ from limelight.model.utils import get_activation, get_normalize
 from limelight.model.mpnn import SingleMPNN
 from limelight.utils import parse_args
 
-MPNNs_map = torch_geometric.nn.conv.__all__
+from limelight.api import parse_config
 
-DEFAULT_NUM_LAYER = 3
-DEFAULT_DROPOUT = 0.5
+
+config = parse_config()
+NUMBER_LAYER = config.num_layers
+DROPOUT = config.dropout
+conv_map = torch_geometric.nn.conv.__all__
 
 class BaseModule(nn.Module):
     def __init__(self, args: [Dict, argparse.Namespace], **kwargs):
         super(BaseModule, self).__init__()
         self.args = parse_args(args)
-        if not (self.args["conv_type"] in MPNNs_map or
+        if not (self.args["conv_type"] in conv_map or
                 self.args["conv_type"].lower() in ["mlp", "linear"]):
             raise ValueError(f"Unknown layer: {self.args['conv_type']}. "
-                             f"Available: {['MLP', 'Linear'] + MPNNs_map}")
+                             f"Available: {['MLP', 'Linear'] + conv_map}")
 
-        self.conv_type = "mpnn" if self.args["conv_type"] in MPNNs_map else "mlp"
-        self.num_layers = self.args.get("num_layers", DEFAULT_NUM_LAYER)
-        self.dropout = self.args.get("dropout", DEFAULT_DROPOUT)
+        self.conv_type = "mpnn" if self.args["conv_type"] in conv_map else "mlp"
+        self.num_layers = self.args.get("num_layers", NUMBER_LAYER)
+        self.dropout = self.args.get("dropout", DROPOUT)
         self.res = self.args.get("res", False)
         self.jk = self.args.get("jk", False)
 
@@ -144,8 +147,7 @@ class NormModule(BaseModule):
 
 
 class Boosting(BaseModule):
-    def __init__(self,):
-        raise NotImplementedError
+    pass
 
 if __name__ == "__main__":
     model_map = {"in_channels": 64, "hidden_channels": 256,

@@ -4,9 +4,12 @@ __all__ = ["FixValueFilling", "RandomFilling", "MeanFilling", "NeighborhoodMeanF
 import torch
 from torch_geometric.nn import SimpleConv
 from torch_geometric.utils import degree
-from limelight.imputer.base import BaseFilling
 
-FIX_VALUE = 0
+from limelight.imputer.base import BaseFilling
+from limelight.api import parse_config
+
+CONFIG = parse_config()
+FIX_VALUE = CONFIG.fix_value
 
 class FixValueFilling(BaseFilling):
     fix_value = FIX_VALUE

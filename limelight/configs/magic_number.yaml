@@ -2,7 +2,7 @@
 
 dataset:
     utils:
-        dir: "row_data"
+        dir: "raw_data"
 
 
 imputer:
@@ -15,7 +15,7 @@ imputer:
 
 model:
     module:
-        num_layer: 2
+        num_layers: 2
         dropout: 0.5
 
     sandbox:
@@ -34,3 +34,5 @@ utils:
     logger:
         log_dir: "log"
         log_level: "INFO"
+        log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        date_format: "%Y-%m-%d %H:%M:%S"

@@ -1,5 +1,7 @@
 
 
+__all__ = ["data_loader"]
+
 import scipy
 import torch
 import numpy as np
@@ -30,14 +32,13 @@ custom_api_map = {
 }
 
 
-def load_data(func_name, name):
-    if name in default_api_map:
+def data_loader(func_name, name):
+    if func_name in default_api_map:
         return load_build_in_data(func_name, name)
-    elif name in custom_api_map:
-        pass
-
+    elif func_name in custom_api_map:
+        return load_custom_data(func_name, name)
     else:
-        raise NotImplementedError
+        raise ValueError(f"Invalid dataset name: {name}")
 
 def load_build_in_data(func_name, name):
     func, transform = parse_setting(default_api_map, func_name)
@@ -45,7 +46,13 @@ def load_build_in_data(func_name, name):
     data = func(root=data_dir, name=name, transform=transform)
     return data[0]
 
+def load_custom_data(func_name, name):
+    func, transform = parse_setting(custom_api_map, func_name)
+    data_dir = parse_data_dir(func_name, name)
+    data = func(root=data_dir, name=name, transform=transform)
+    return data[0]
+
 
 if __name__ == "__main__":
     pass
-    #print(load_hetero("hetero", name='roman-empire'))
+    print(data_loader("hetero", name='roman-empire'))

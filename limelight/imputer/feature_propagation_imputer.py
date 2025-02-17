@@ -5,8 +5,10 @@ from torch_geometric.nn import SimpleConv
 from torch_geometric.utils import get_laplacian
 
 from limelight.imputer.base import BaseFilling
+from limelight.api import parse_config
 
-NUMBER_ITERATIONS = 40
+CONFIG = parse_config()
+NUMBER_ITERATIONS = CONFIG.num_iterations
 
 class FeaturePropagationFilling(BaseFilling):
     conv = SimpleConv(aggr='add')
@@ -16,7 +18,7 @@ class FeaturePropagationFilling(BaseFilling):
         out = x.clone()
         out[mask] = 0
 
-        _, edge_weight = get_laplacian(edge_index,
+        edge_index, edge_weight = get_laplacian(edge_index,
                                        num_nodes=out.shape[0],
                                        normalization='sym')
         for _ in range(NUMBER_ITERATIONS):
