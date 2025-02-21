@@ -1,3 +1,3 @@
 
 
-LIME（Light Imputation via Message-passing Engine）
+LIME-light（Light Imputation via Message-passing Engine）
