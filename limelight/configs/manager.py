@@ -1,23 +1,15 @@
 
-__all__ = ["parse_config"]
+__all__ = ["cached_parse_config"]
 
 import os
 import inspect
 from functools import lru_cache
-from limelight.configs import cached_parse_config
 
-def parse_config():
-    """解析設定檔，並回傳 ConfigWrapper 實例"""
-    caller_frame = inspect.stack()[1]
-    caller_path = caller_frame.filename
-
-    relative_path = os.path.relpath(caller_path, os.path.join(os.path.dirname(__file__), "../"))
-    module_name = relative_path.replace(os.sep, ".").rsplit(".", 1)[0]
-    return cached_parse_config(module_name)
-
+from limelight.configs.loader import *
+from limelight.configs.wrapper import ConfigWrapper
 
 @lru_cache(maxsize=None)
-def _cached_parse_config(module_name):
+def cached_parse_config(module_name):
     """
     快取解析結果，避免重複解析相同模組的設定
     """
@@ -41,8 +33,3 @@ def _parse_config(cfg, keys):
         else:
             return {}
     return result
-
-
-if __name__ == "__main__":
-    print(dir(parse_config()))
-    print(parse_config()["CONFIGS_DIR"])
