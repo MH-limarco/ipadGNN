@@ -7,9 +7,9 @@ from typing import Union, Type, Optional, overload
 
 from limelight.api import parse_config
 
-config = parse_config()
-DEFAULT_ACTIVATION = config.activation
-DEFAULT_NORMALIZE = config.normalize
+CONFIG = parse_config()
+DEFAULT_ACTIVATION = CONFIG.activation
+DEFAULT_NORMALIZE = CONFIG.normalize
 
 activation_map = {
     "identity": nn.Identity,
@@ -23,7 +23,7 @@ activation_map = {
     "sigmoid": nn.Sigmoid,
     "softmax": lambda: nn.Softmax(dim=-1),
     "log_softmax": lambda: nn.LogSoftmax(dim=-1),
-    "swiglu": lambda in_channels, out_channels=None: SWiGLU(in_channels, out_channels)
+    "swiglu": lambda in_channels, out_channels=None: SwiGLU(in_channels, out_channels)
 }
 
 normalize_map = {
@@ -34,9 +34,9 @@ normalize_map = {
 }
 
 
-class SWiGLU(nn.Module):
+class SwiGLU(nn.Module):
     def __init__(self, in_channels, out_channels=None):
-        super(SWiGLU, self).__init__()
+        super(SwiGLU, self).__init__()
         self.in_channels = in_channels
         self.out_channels = in_channels if out_channels is None else out_channels
         self.fc = nn.Linear(in_channels, 2 * self.out_channels, bias=True)

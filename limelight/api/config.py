@@ -5,14 +5,11 @@ import os
 import inspect
 from functools import lru_cache
 from limelight.configs import *
+from limelight.utils import get_caller_path
 
 def parse_config():
     """解析設定檔，並回傳 ConfigWrapper 實例"""
-    caller_frame = inspect.stack()[1]
-    caller_path = caller_frame.filename
-
-    relative_path = os.path.relpath(caller_path, os.path.join(os.path.dirname(__file__), "../"))
-    module_name = relative_path.replace(os.sep, ".").rsplit(".", 1)[0]
+    module_name = get_caller_path(frame = inspect.stack()[1])
     return _cached_parse_config(module_name)
 
 

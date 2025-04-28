@@ -2,15 +2,26 @@
 __all__ = ['SplitManager']
 
 import torch
+import numpy as np
 from limelight.utils import set_attrs
 
+LABEL = 'y'
 TRAIN_MASK = 'train_mask'
 VAL_MASK = 'val_mask'
 TEST_MASK = 'test_mask'
 
+TRAIN_MASK_npz = 'train'
+VAL_MASK_npz = 'valid'
+TEST_MASK_npz = 'test'
+
+
 class SplitManager:
     def __init__(self, dataset):
         self.dataset = dataset
+        self.data_dir = dataset.data_dir
+        self.data_root = dataset.data_root
+
+        self.name = dataset.name
         self.num_nodes = dataset.num_nodes
         self.label = dataset.y.squeeze()  # 確保標籤形狀正確
         self.reset_masks()
@@ -44,7 +55,7 @@ class SplitManager:
                   names=[TRAIN_MASK, VAL_MASK, TEST_MASK],
                   values=[train_mask, valid_mask, test_mask])
 
-    def random_split(self, train_prop=0.5, valid_prop=0.25, ignore_negative=True):
+    def random_split(self, train_prop=0.5, valid_prop=0.25, ignore_negative=True, **kwargs):
         labeled_nodes = torch.nonzero(self.label != -1, as_tuple=True)[0] if ignore_negative else self.label
         num_labeled = labeled_nodes.shape[0]
         perm = torch.randperm(num_labeled)
@@ -59,7 +70,7 @@ class SplitManager:
         self._create_bool_mask(train_idx, valid_idx, test_idx)
         return self.dataset
 
-    def class_split(self, label_num_per_class, valid_num=500):
+    def class_split(self, label_num_per_class, valid_num=500, test_num=1000, **kwargs):
         class_list = self.label.unique()
 
         train_idx, non_train_idx = [], []
@@ -79,27 +90,40 @@ class SplitManager:
         # 隨機打亂非訓練集
         perm = torch.randperm(non_train_idx.shape[0])
         valid_idx = non_train_idx[perm[:valid_num]]
-        test_idx = non_train_idx[perm[valid_num:]]  # 剩下的所有數據作為測試集
+        test_idx = non_train_idx[perm[valid_num : valid_num + test_num]]  # 剩下的所有數據作為測試集
 
         # 創建 `bool` mask
         self._create_bool_mask(train_idx, valid_idx, test_idx)
 
         return self.dataset
 
-    def fixed_split(self, idx=0):
-        self.set_masks()
-        if getattr(self, TRAIN_MASK).dim() == 1:
-            _masks = [getattr(self, n) for n in [TRAIN_MASK, VAL_MASK, TEST_MASK]]
+    def fixed_split(self, mask_idx=0, **kwargs):
+        if self.name in ["cs", "physics", "computers", "photo"]:
+            _masks_np = np.load(f'{self.data_root}/{self.name}_split.npz')
+            _masks = [torch.from_numpy(_masks_np[n]) for n in [TRAIN_MASK_npz, VAL_MASK_npz, TEST_MASK_npz]]
+            _max_idx = max([i.max() for i in _masks])
+            _masks = [torch.zeros(_max_idx + 1, dtype=torch.bool).scatter_(0, mask, True) for mask in _masks]
+
+        elif self.name in ["wikics"]:
+            if not hasattr(self.dataset, "_"+TRAIN_MASK):
+                for name in [TRAIN_MASK, VAL_MASK, TEST_MASK]:
+                    setattr(self.dataset, f"_{name}", getattr(self.dataset, name))
+
+            _masks = [getattr(self.dataset, f"_{name}")[:, mask_idx] if getattr(self.dataset, f"_{name}").dim() > 1
+                      else getattr(self.dataset, f"_{name}") for name in [TRAIN_MASK, VAL_MASK, TEST_MASK]]
+
         else:
-            _masks = [getattr(self, n)[:, idx] for n in [TRAIN_MASK, VAL_MASK, TEST_MASK]]
+            raise ValueError(f"Unsupported dataset: {self.name} for fixed split.")
+
         set_attrs(obj=self.dataset, names=[TRAIN_MASK, VAL_MASK, TEST_MASK], values=_masks)
+
         return self.dataset
 
 
 if __name__ == "__main__":
-    from limelight.dataset.dataset_loader import load_data
+    from limelight.dataset.dataset_loader import data_loader
 
-    mag = SplitManager(load_data("hetero", name='roman-empire'))
-    print(mag.fixed_split(2).train_mask)
+    mag = SplitManager(data_loader("wikci", name='photo')) #roman-empire
+    print(mag.fixed_split(2))
     print(mag.random_split())
     print(mag.class_split(label_num_per_class=10))

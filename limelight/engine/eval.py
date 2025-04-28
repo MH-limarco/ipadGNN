@@ -14,17 +14,17 @@ class EvalManager:
         else:
             raise ValueError("input must be 1D or 2D tensor")
 
-    def eval_f1(self, y_true, y_pred, average='micro'):
+    def eval_f1(self, y_pred, y_true, average='micro'):
         y_pred = self._argmax(y_pred)
         return multiclass_f1_score(y_pred, y_true,
                                    num_classes=self.num_classes, average=average).item()
 
-    def eval_acc(self, y_true, y_pred):
+    def eval_acc(self, y_pred, y_true, ):
         y_pred = self._argmax(y_pred)
         corr_count = torch.sum(y_pred == y_true)
         return (corr_count / len(y_pred)).item()
 
-    def eval_rocauc(self, y_true, y_pred):
+    def eval_rocauc(self, y_pred, y_true):
         y_pred = F.softmax(y_pred, dim=-1)
         return multiclass_auroc(y_pred, y_true.view(-1),
                                 num_classes=self.num_classes)  # .item()

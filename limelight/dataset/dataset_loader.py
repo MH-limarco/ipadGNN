@@ -11,9 +11,9 @@ from torch_geometric.data import Data
 from torch_geometric.datasets import Planetoid, Amazon, Coauthor, WikiCS
 from torch_geometric.datasets import HeterophilousGraphDataset
 from ogb.nodeproppred import NodePropPredDataset
-import gdown
 
 from limelight.dataset.utils import parse_setting, parse_data_dir
+from limelight.utils import get_func_args
 
 import torch_geometric.transforms as T
 DEFAULT_TRANSFORM = T.NormalizeFeatures()
@@ -32,26 +32,36 @@ custom_api_map = {
 }
 
 
-def data_loader(func_name, name):
+def data_loader(func_name, name, **kwargs):
     if func_name in default_api_map:
-        return load_build_in_data(func_name, name)
+        return load_build_in_data(func_name, name, **kwargs)
     elif func_name in custom_api_map:
         return load_custom_data(func_name, name)
     else:
         raise ValueError(f"Invalid dataset name: {name}")
 
-def load_build_in_data(func_name, name):
+def load_build_in_data(func_name, name, **kwargs):
     func, transform = parse_setting(default_api_map, func_name)
-    data_dir = parse_data_dir(func_name, name)
-    data = func(root=data_dir, name=name, transform=transform)
-    return data[0]
+    data_root, data_dir = parse_data_dir(func_name, name)
+
+    _args = {"root": data_dir, "name": name, "transform": transform, "is_undirected": True}
+    func_args = {n: _args[n] for n in get_func_args(func) if n in _args}
+    data = func(**func_args, **kwargs)[0]
+
+    data.name = name.lower()
+    data.data_root = data_root
+    data.data_dir = data_dir
+    return data
 
 def load_custom_data(func_name, name):
     func, transform = parse_setting(custom_api_map, func_name)
-    data_dir = parse_data_dir(func_name, name)
-    data = func(root=data_dir, name=name, transform=transform)
-    return data[0]
+    data_root, data_dir = parse_data_dir(func_name, name)
+    data = func(root=data_dir, name=name, transform=transform)[0]
 
+    data.name = name.lower()
+    data.data_root = data_root
+    data.data_dir = data_dir
+    return data
 
 if __name__ == "__main__":
     pass

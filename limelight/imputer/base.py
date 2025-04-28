@@ -1,9 +1,17 @@
 import torch
 
 class BaseFilling:
+    def __init__(self, *args, **kwargs):
+        pass
+
     def forward(self, dataset, **kwargs):
-        filled_x = self.fill(dataset)
+        _org_device = dataset.x.device
+
+        filled_x = self.fill(dataset).to(_org_device)
+        dataset = dataset.to(_org_device)
+
         dataset.x = torch.where(dataset.x.isnan(), filled_x, dataset.x)
+        #dataset.x = filled_x
         return dataset
 
     @staticmethod

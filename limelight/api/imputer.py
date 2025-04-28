@@ -5,14 +5,20 @@ from limelight.imputer import *
 
 func_map = {
     "fixed": FixValueFilling,
+    "zero": ZeroFilling,
     "random": RandomFilling,
     "mean": MeanFilling,
     "nn-mean": NeighborhoodMeanFilling,
     "fp": FeaturePropagationFilling,
+    "apcfi": APCFIFilling,
 }
 
-def filling_data(data, method:str):
-    impute = func_map[method.lower()]()
+def filling_data(data, method:str, **kwargs):
+    print(f"Filling data with {method} method.")
+    if method.lower() not in func_map:
+        raise ValueError(f"Method {method} not recognized. Available methods: {list(func_map.keys())}")
+
+    impute = func_map[method.lower()](**kwargs)
     return impute(data)
 
 if __name__ == "__main__":
@@ -20,4 +26,4 @@ if __name__ == "__main__":
 
     dataset, mask = load_dataset("pubmed", "random", missing_rate=0.5)
     print(dataset)
-    print(filling_data(dataset, "fixed").x)
+    print(filling_data(dataset, "fp").x)

@@ -17,7 +17,7 @@ if __name__ == "__main__":
     import torch
 
     args = {"model_type": "mpnn",
-            "conv_type": "linear",
+            "conv_type": "GCNConv",
             "in_channels": 64, "hidden_channels": 256,
             "out_channels": 1, "num_layers": 3,
             "heads": 4, "K": 1,
@@ -27,5 +27,5 @@ if __name__ == "__main__":
     model = build_model(args)
     x = torch_geometric.data.Data(x=torch.randn(2, 64),
                                   edge_index=torch.tensor([[0, 1], [1, 0]]))
-
-    print(model(x))
+    print(model)
+    print(model(x).shape)

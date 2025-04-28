@@ -17,31 +17,31 @@ from limelight.utils import parse_args
 from limelight.api import parse_config
 
 
-config = parse_config()
-NUMBER_LAYER = config.num_layers
-DROPOUT = config.dropout
-conv_map = torch_geometric.nn.conv.__all__
+CONFIG = parse_config()
+NUMBER_LAYER = CONFIG.num_layers
+DROPOUT = CONFIG.dropout
+CONV_MAP = torch_geometric.nn.conv.__all__
 
 class BaseModule(nn.Module):
     def __init__(self, args: [Dict, argparse.Namespace], **kwargs):
         super(BaseModule, self).__init__()
         self.args = parse_args(args)
-        if not (self.args["conv_type"] in conv_map or
+        if not (self.args["conv_type"] in CONV_MAP or
                 self.args["conv_type"].lower() in ["mlp", "linear"]):
             raise ValueError(f"Unknown layer: {self.args['conv_type']}. "
-                             f"Available: {['MLP', 'Linear'] + conv_map}")
+                             f"Available: {['MLP', 'Linear'] + CONV_MAP}")
 
-        self.conv_type = "mpnn" if self.args["conv_type"] in conv_map else "mlp"
+        self.conv_type = "mpnn" if self.args["conv_type"] in CONV_MAP else "mlp"
         self.num_layers = self.args.get("num_layers", NUMBER_LAYER)
         self.dropout = self.args.get("dropout", DROPOUT)
         self.res = self.args.get("res", False)
         self.jk = self.args.get("jk", False)
 
         self.input_type = None
-        self.acts = nn.ModuleList()
-        self.norms = nn.ModuleList()
         self.layers = nn.ModuleList()
         self.res_layers = nn.ModuleList()
+        self.acts = nn.ModuleList()
+        self.norms = nn.ModuleList()
 
         self._read_args()
         self._build_input_layer()
@@ -80,7 +80,7 @@ class BaseModule(nn.Module):
     def _read_args(self):
         self.in_channels = self.args["in_channels"]
         self.hidden_channels = self.args["hidden_channels"]
-        self.out_channels = self.args["out_channels"]
+        self.out_channels = self.args["num_classes"]
 
         self.pre_linear = self.args.get("pre_linear", False)
         self.norm_type = self.args.get("norm_type", None)
@@ -117,7 +117,9 @@ class NormModule(BaseModule):
                 self.res_layers.append(nn.Linear(self.in_channels, self.hidden_channels))
 
             self.layers.append(self.build_layer(self.in_channels, self.hidden_channels))
-            self.norms.append(get_normalize(self.norm_type, in_channels=self.hidden_channels))
+            if self.norm_type not in [None, "identity"]:
+                self.norms.append(get_normalize(self.norm_type, in_channels=self.hidden_channels))
+
             self.acts.append(get_activation(self.act_type, in_channels=self.hidden_channels))
             self.in_channels = self.hidden_channels
 
@@ -134,7 +136,8 @@ class NormModule(BaseModule):
             else:
                 x = layer(*_input)
 
-            x = self.norms[idx](x)
+            if self.norm_type not in [None, "identity"]:
+                x = self.norms[idx](x)
             x = self.acts[idx](x)
             x = F.dropout(x, p=self.dropout, training=self.training)
 
@@ -150,8 +153,8 @@ class BoostModule(BaseModule):
     pass
 
 if __name__ == "__main__":
-    model_map = {"in_channels": 64, "hidden_channels": 256,
-                 "out_channels": 1, "num_layers": 3,
+    model_map = {"in_channels": 256, "hidden_channels": 256,
+                 "num_classes": 1, "num_layers": 3,
                  "res": True, "jk": False, "pre_linear": False,
                  "conv_type": "linear", "heads": 4,
                  "K": 1,

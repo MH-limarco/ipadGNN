@@ -1,5 +1,16 @@
 
 
+core:
+    logger:
+        log_dir: "log"
+        log_level: "INFO"
+        log_format: "%(asctime)s - %(name)s - [%(levelname)s]: %(message)s"
+        date_format: "%Y-%m-%d %H:%M:%S"
+
+    parser:
+        seed: 42
+
+
 dataset:
     utils:
         dir: "raw_data"
@@ -26,13 +37,3 @@ model:
     utils:
         activation: relu
         normalize: identity
-
-utils:
-    tool:
-        seed: 42
-
-    logger:
-        log_dir: "log"
-        log_level: "INFO"
-        log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        date_format: "%Y-%m-%d %H:%M:%S"

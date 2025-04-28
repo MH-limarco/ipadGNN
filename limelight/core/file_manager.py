@@ -3,6 +3,9 @@ import json
 import torch
 from datetime import datetime
 from limelight.api import parse_config
+from limelight.utils import parse_args
+
+CONFIG = parse_config()
 
 class ExperimentManager:
     """
@@ -12,26 +15,36 @@ class ExperimentManager:
     - 提供 API 來存儲模型、超參數、結果、日誌
     """
 
-    def __init__(self, model_type, filling_method, dataset_name, seed):
-        """
-        初始化實驗存儲目錄
-        :param model_type: str - 模型類型 (如 GNN, MLP)
-        :param filling_method: str - 缺失值填充方法 (如 zero_filling, random_filling)
-        :param dataset_name: str - 數據集名稱 (如 Cora, Citeseer)
-        :param seed: int - 隨機種子
-        """
+    def __init__(self, args):
+
 
         # 讀取 `config.yaml`
-        config = parse_config()
-        base_save_dir = os.path.join(config.get("base_dir", "save"))
+        self.args = parse_args(args)
+        model_type = self.args["model_type"]
+        filling_method = self.args["filling_method"]
+        dataset_name = self.args["dataset_name"]
+        seed = self.args["seed"]
+        missing_rate = self.args["missing_rate"]
+        missing_type = self.args["missing_type"]
+
+
+        # 基本存儲目錄
+        self.PROJECT_ROOT = CONFIG.PROJECT_ROOT
+        base_save_dir = os.path.join(self.PROJECT_ROOT, CONFIG.get("base_dir", "save"))
 
         # 建立 `save` 路徑
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.exp_dir = os.path.join(base_save_dir, model_type, filling_method, dataset_name, f"seed{seed}_{timestamp}")
+        self.exp_dir = os.path.join(base_save_dir,
+                                    f"seed_{seed}",
+                                    f"{dataset_name.lower()}_{missing_rate}_{missing_type.lower()}",
+                                    filling_method.lower(),
+                                    model_type.lower(),
+                                    args["conv_type"].lower(),
+                                     )
 
         # 目錄結構
         self.weight_dir = os.path.join(self.exp_dir, "weight")  # 儲存模型
-        self.log_dir = os.path.join(self.exp_dir, "logs")  # 儲存日誌
+        self.plt_dir = os.path.join(self.exp_dir, "plt")  # 儲存日誌
         self.args_file = os.path.join(self.exp_dir, "args.json")  # 儲存超參數
         self.result_file = os.path.join(self.exp_dir, "result.json")  # 儲存實驗結果
 
@@ -40,16 +53,18 @@ class ExperimentManager:
 
     def _ensure_dirs(self):
         """確保所有實驗目錄存在"""
-        for directory in [self.exp_dir, self.weight_dir, self.log_dir]:
+        for directory in [self.exp_dir, self.weight_dir, self.plt_dir]:
             os.makedirs(directory, exist_ok=True)
 
     ## 🔹 SAVE & LOAD FUNCTIONS ##
-    def save_json(self, data, file_path):
+    @staticmethod
+    def save_json(data, file_path):
         """儲存 JSON 檔案"""
         with open(file_path, "w") as f:
             json.dump(data, f, indent=4)
 
-    def load_json(self, file_path):
+    @staticmethod
+    def load_json(file_path):
         """加載 JSON 檔案"""
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"JSON 檔案 `{file_path}` 不存在")
@@ -87,3 +102,15 @@ class ExperimentManager:
     def get_exp_dir(self):
         """返回實驗目錄"""
         return self.exp_dir
+
+if __name__ == "__main__":
+    args = {
+        "model_type": "GCNConv",
+        "filling_method": "fp",
+        "dataset_name": "Cora",
+        "seed": 42,
+        "missing_rate": 0.8,
+        "missing_type": "random"
+    }
+
+    exp_manager = ExperimentManager(args)

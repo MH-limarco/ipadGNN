@@ -1,5 +1,5 @@
 
-__all__ = ["FixValueFilling", "RandomFilling", "MeanFilling", "NeighborhoodMeanFilling"]
+__all__ = ["FixValueFilling", "ZeroFilling", "RandomFilling", "MeanFilling", "NeighborhoodMeanFilling"]
 
 import torch
 from torch_geometric.nn import SimpleConv
@@ -14,8 +14,19 @@ FIX_VALUE = CONFIG.fix_value
 class FixValueFilling(BaseFilling):
     fix_value = FIX_VALUE
     def fill(self, dataset):
-        return torch.ones_like(dataset.x) * self.fix_value
+        x = dataset.x
+        missing_mask = x.isnan()
+        x[missing_mask] = self.fix_value
+        return x
+        #return torch.ones_like(dataset.x) * self.fix_value
 
+class ZeroFilling(FixValueFilling):
+    def fill(self, dataset):
+        x = dataset.x
+        missing_mask = x.isnan()
+        x[missing_mask] = 0.0
+        return x
+        #return torch.zeros_like(dataset.x)
 
 class RandomFilling(BaseFilling):
     def fill(self, dataset):

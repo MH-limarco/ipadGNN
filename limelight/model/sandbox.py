@@ -8,10 +8,10 @@ from limelight.model import *
 from limelight.utils import Timer
 from limelight.api import parse_config
 
-config = parse_config()
-NUMBER_NODE = config.number_node
-NUMBER_EDGE = config.number_edge
-NUMBER_ITERATIONS = config.number_iterations
+CONFIG = parse_config()
+NUMBER_NODE = CONFIG.number_node
+NUMBER_EDGE = CONFIG.number_edge
+NUMBER_ITERATIONS = CONFIG.number_iterations
 
 class BaseSandBox:
     def __init__(self, module: torch.nn.Module, in_dim, num_iterations=NUMBER_ITERATIONS, warm_iter=None, device="cuda"):
