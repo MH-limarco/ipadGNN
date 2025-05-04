@@ -10,7 +10,9 @@ import inspect
 import torch
 import numpy as np
 from collections.abc import Iterable
-from typing import Any
+from types import SimpleNamespace
+from functools import wraps
+from typing import Callable, Any, Dict
 
 
 def fix_seed(seed=42):
@@ -91,3 +93,47 @@ def get_func_args(func):
         else:
             parts.append(name)
     return tuple(parts)
+
+
+def pack_args(step=1):
+    """
+    抓取上一層 caller（也就是 __init__）的參數名 + 傳入值，
+    自動把 **kwargs 展開，且跳過 self。
+    """
+    # 取上一層 frame
+    frame = inspect.currentframe()
+    for i in range(step):
+        frame = frame.f_back
+    args, varargs, kwargs_, locals_ = inspect.getargvalues(frame)
+    result = {}
+    for name in args:
+        if name == "self":
+            continue
+        if name == kwargs_:
+            # 把 **kwargs 的內容攤平
+            result.update(locals_[name])
+        else:
+            result[name] = locals_[name]
+    return result
+
+
+def extract_init_args(obj: Any) -> Dict[str, Any]:
+    """
+    給定一個物件 obj，讀它的類別 __init__ 簽名，
+    然後：
+      - 對每個參數 name (跳過 self)：
+          if hasattr(obj, name): 取 getattr(obj, name)
+          else: use signature.parameters[name].default
+    回傳一個 {參數名: 最終值} 的 dict。
+    """
+    sig = inspect.signature(obj.__class__.__init__)
+    params: Dict[str, Any] = {}
+    for name, param in sig.parameters.items():
+        if name == "self":
+            continue
+        if hasattr(obj, name):
+            params[name] = getattr(obj, name)
+        else:
+            # 如果實例上沒有這個屬性，就拿預設值
+            params[name] = param.default if param.default is not inspect._empty else None
+    return params

@@ -79,9 +79,9 @@ class SplitManager:
         # 針對每個類別進行拆分
         for c in class_list:
             idx_c = all_idx[self.label == c]
-            idx_c = idx_c[torch.randperm(idx_c.shape[0])]  # 隨機排列
-            train_idx += idx_c[:label_num_per_class].tolist()
-            non_train_idx += idx_c[label_num_per_class:].tolist()
+            rand_idx = idx_c[torch.randperm(idx_c.shape[0])]  # 隨機排列
+            train_idx += rand_idx[:label_num_per_class].tolist()
+            non_train_idx += rand_idx[label_num_per_class:].tolist()
 
         # 轉換為 `torch.Tensor`
         train_idx = torch.as_tensor(train_idx)
@@ -89,12 +89,13 @@ class SplitManager:
 
         # 隨機打亂非訓練集
         perm = torch.randperm(non_train_idx.shape[0])
-        valid_idx = non_train_idx[perm[:valid_num]]
-        test_idx = non_train_idx[perm[valid_num : valid_num + test_num]]  # 剩下的所有數據作為測試集
+        non_train_idx = non_train_idx[perm]
+
+        valid_idx = non_train_idx[:valid_num]
+        test_idx = non_train_idx[valid_num : valid_num + test_num] # 剩下的所有數據作為測試集
 
         # 創建 `bool` mask
         self._create_bool_mask(train_idx, valid_idx, test_idx)
-
         return self.dataset
 
     def fixed_split(self, mask_idx=0, **kwargs):
