@@ -86,7 +86,7 @@ If you find this code useful, please cite [our work](https://thesis.lib.ncku.edu
 ```BibTeX
 @article{li2025ipadgnn,
   title={iPaDGNN: Joint Learning with Imputation, Pruning, and Distillation},
-  author={Man-Ho Li},
+  author={Man-Ho Li, Cheng-Te Li},
   year={2025}
 }
 ```
