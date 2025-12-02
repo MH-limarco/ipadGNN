@@ -1,6 +1,11 @@
-/engine/save_full_pt/
-
 .__pycache__/
 *.pyc
 *.pt
 *.db
+
+/engine/save_full_pt/
+/raw_data/amazon/
+/raw_data/coauthor/
+/raw_data/hetero/
+/raw_data/planetoid/
+/raw_data/wikics/
