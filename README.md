@@ -73,8 +73,8 @@ pip install -r requirements.txt
 
 ## 🚴‍♂️ Running Experiments
 ```Bash
-python enginn/main.py 
-python enginn/main_sota.py 
+python engine/main.py 
+python engine/main_sota.py 
 ```
 
 🛠️ Tech Stack
