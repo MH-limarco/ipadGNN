@@ -15,9 +15,9 @@
 ![img.png](assets%2Fimg.png)
 
 The framework consists of three core modules designed to work in synergy:
-1.  **APCFI (Imputation):** Recovers missing node features using parallel diffusion.
+1.  **APCFI (Imputation):** Recovers missing node features using parallel diffusion. (build on [PCFI](https://github.com/daehoum1/pcfi))
 2.  **MPP (Pruning):** Compresses the model using a Mirror Projection technique.
-3.  **MP-KRD (Distillation):** Transfers knowledge to a lightweight student model.
+3.  **MP-KRD (Distillation):** Transfers knowledge to a lightweight student model. (base on [RKD](https://github.com/LirongWu/KRD) )
 
 ---
 
