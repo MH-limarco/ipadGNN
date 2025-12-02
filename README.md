@@ -12,7 +12,7 @@
 
 ## 🏗️ Architecture
 
-*(Please insert your Figure 4.1 from the thesis here: `assets/architecture.png`)*
+![img.png](assets%2Fimg.png)
 
 The framework consists of three core modules designed to work in synergy:
 1.  **APCFI (Imputation):** Recovers missing node features using parallel diffusion.
