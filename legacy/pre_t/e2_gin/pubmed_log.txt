@@ -1,0 +1,4 @@
+model train_time test_acc
+gnn,44.3529 ± 0.537,0.7830 ± 0.005
+model train_time test_acc
+prune_gnn,27.1085 ± 0.568,0.7854 ± 0.007

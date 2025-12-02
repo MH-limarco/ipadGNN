@@ -1,0 +1,47 @@
+seed: 123
+dataset:
+  split: class
+  label_num_per_class: 20
+  valid_num: 500
+  test_num: 1000
+
+gcn:
+    epochs: 500
+    hidden: 512
+    dropout: 0.7
+    num_layers: 3
+    lr: 0.001
+    weight_decay: 5e-4
+    norm: null
+    residual: False
+
+sage:
+    epochs: 500
+    hidden: 256
+    dropout: 0.7
+    num_layers: 3
+    lr: 0.001
+    weight_decay: 5e-4
+    norm: null
+    residual: False
+
+gin:
+    epochs: 500
+    hidden: 512
+    dropout: 0.4
+    num_layers: 2
+    lr: 0.001
+    weight_decay: 5e-4
+    norm: null
+    residual: True
+
+cheb:
+    epochs: 500
+    hidden: 256
+    dropout: 0.6
+    num_layers: 3
+    lr: 0.001
+    weight_decay: 5e-4
+    norm: null
+    residual: True
+    K: 3

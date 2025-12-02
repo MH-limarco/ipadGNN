@@ -1,0 +1,104 @@
+model train_time test_acc
+gnn_0.0,87.8343 ± 0.968,0.9364 ± 0.001
+model train_time test_acc
+gnn_fp_0.3,84.1480 ± 0.120,0.9330 ± 0.001
+model train_time test_acc
+gnn_apcfi_0.3,89.8754 ± 1.619,0.9342 ± 0.001
+model train_time test_acc
+gnn_zero_0.3,91.4082 ± 0.364,0.2436 ± 0.116
+model train_time test_acc
+gnn_fp_0.6,87.3138 ± 0.154,0.9299 ± 0.002
+model train_time test_acc
+gnn_apcfi_0.6,92.9607 ± 0.352,0.9312 ± 0.001
+model train_time test_acc
+gnn_zero_0.6,84.2575 ± 0.081,0.9314 ± 0.001
+model train_time test_acc
+gnn_fp_0.9,87.5203 ± 0.141,0.9222 ± 0.002
+model train_time test_acc
+gnn_apcfi_0.9,87.3888 ± 0.137,0.9224 ± 0.001
+model train_time test_acc
+gnn_zero_0.9,118.2073 ± 40.124,0.9266 ± 0.001
+model train_time test_acc
+gnn_fp_0.995,119.1991 ± 34.441,0.9182 ± 0.002
+model train_time test_acc
+gnn_apcfi_0.995,99.4135 ± 0.354,0.9144 ± 0.001
+model train_time test_acc
+gnn_zero_0.995,98.8066 ± 0.136,0.3853 ± 0.000
+model train_time test_acc
+classic_gnn_0.0,67.7139 ± 0.127,0.6743 ± 0.006
+model train_time test_acc
+classic_gnn_fp_0.3,67.8985 ± 0.172,0.6587 ± 0.006
+model train_time test_acc
+classic_gnn_apcfi_0.3,67.7312 ± 0.090,0.6579 ± 0.005
+model train_time test_acc
+classic_gnn_zero_0.3,67.7933 ± 0.158,0.5744 ± 0.006
+model train_time test_acc
+classic_gnn_fp_0.6,67.3292 ± 1.092,0.6300 ± 0.011
+model train_time test_acc
+classic_gnn_apcfi_0.6,66.5390 ± 7.188,0.6220 ± 0.011
+model train_time test_acc
+classic_gnn_zero_0.6,59.5925 ± 2.879,0.5364 ± 0.002
+model train_time test_acc
+classic_gnn_fp_0.9,66.7195 ± 5.168,0.5720 ± 0.004
+model train_time test_acc
+classic_gnn_apcfi_0.9,61.6476 ± 2.217,0.5706 ± 0.004
+model train_time test_acc
+classic_gnn_zero_0.9,60.1404 ± 0.087,0.3853 ± 0.000
+model train_time test_acc
+classic_gnn_fp_0.995,59.9447 ± 0.087,0.3853 ± 0.000
+model train_time test_acc
+classic_gnn_apcfi_0.995,60.1709 ± 0.099,0.5175 ± 0.003
+model train_time test_acc
+classic_gnn_zero_0.995,60.2149 ± 0.080,0.3853 ± 0.000
+model train_time test_acc
+prune_gnn_0.0,50.6566 ± 0.282,0.9368 ± 0.001
+model train_time test_acc
+prune_gnn_fp_0.3,49.9067 ± 0.443,0.9332 ± 0.001
+model train_time test_acc
+prune_gnn_apcfi_0.3,50.1937 ± 0.377,0.9337 ± 0.001
+model train_time test_acc
+prune_gnn_zero_0.3,50.0886 ± 0.297,0.9337 ± 0.001
+model train_time test_acc
+prune_gnn_fp_0.6,50.0389 ± 0.350,0.9283 ± 0.001
+model train_time test_acc
+prune_gnn_apcfi_0.6,50.3034 ± 0.371,0.9297 ± 0.001
+model train_time test_acc
+prune_gnn_zero_0.6,50.3289 ± 0.247,0.9289 ± 0.001
+model train_time test_acc
+prune_gnn_fp_0.9,50.6066 ± 0.319,0.9166 ± 0.001
+model train_time test_acc
+prune_gnn_apcfi_0.9,50.7583 ± 0.192,0.9122 ± 0.002
+model train_time test_acc
+prune_gnn_zero_0.9,52.2285 ± 1.241,0.8145 ± 0.160
+model train_time test_acc
+prune_gnn_fp_0.995,50.8671 ± 0.275,0.8910 ± 0.007
+model train_time test_acc
+prune_gnn_apcfi_0.995,51.0056 ± 0.235,0.8780 ± 0.013
+model train_time test_acc
+prune_gnn_zero_0.995,52.3674 ± 0.276,0.3853 ± 0.000
+model train_time test_acc
+classic_prune_gnn_0.0,34.6078 ± 0.104,0.8693 ± 0.001
+model train_time test_acc
+classic_prune_gnn_fp_0.3,34.4862 ± 0.113,0.8663 ± 0.001
+model train_time test_acc
+classic_prune_gnn_apcfi_0.3,34.5105 ± 0.124,0.8663 ± 0.001
+model train_time test_acc
+classic_prune_gnn_zero_0.3,34.8339 ± 0.116,0.8493 ± 0.003
+model train_time test_acc
+classic_prune_gnn_fp_0.6,34.7528 ± 0.162,0.8527 ± 0.002
+model train_time test_acc
+classic_prune_gnn_apcfi_0.6,34.5997 ± 0.100,0.8521 ± 0.003
+model train_time test_acc
+classic_prune_gnn_zero_0.6,34.4232 ± 0.251,0.8169 ± 0.002
+model train_time test_acc
+classic_prune_gnn_fp_0.9,43.7816 ± 11.193,0.8168 ± 0.002
+model train_time test_acc
+classic_prune_gnn_apcfi_0.9,38.6032 ± 1.482,0.8151 ± 0.002
+model train_time test_acc
+classic_prune_gnn_zero_0.9,40.7113 ± 3.448,0.3853 ± 0.000
+model train_time test_acc
+classic_prune_gnn_fp_0.995,39.9159 ± 1.423,0.5983 ± 0.002
+model train_time test_acc
+classic_prune_gnn_apcfi_0.995,35.8395 ± 1.840,0.7181 ± 0.002
+model train_time test_acc
+classic_prune_gnn_zero_0.995,35.2412 ± 0.099,0.3853 ± 0.000

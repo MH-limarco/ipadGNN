@@ -1,0 +1,126 @@
+seed: 42
+dataset:
+    split: fixed
+gcn:
+    dropout: 0.5
+    epochs: 1000
+    hidden: 256
+    norm: layer
+    num_layers: 6
+    residual: true
+    0.5:
+        T_0: .nan
+        imp_type: fpgm
+        isomorphic: true
+        lr: 0.00836
+        prune_T_0: .nan
+        prune_lr: 0.00284
+        prune_scheduler: false
+        prune_step: 1
+        prune_warmup: 0.0
+        prune_weight_decay: 6.97e-05
+        pruner_type: base
+        scheduler: false
+        warmup: 0.0
+        weight_decay: 0.000147
+    0.6:
+        T_0: .nan
+        imp_type: lamp
+        isomorphic: false
+        lr: 0.00134
+        prune_T_0: .nan
+        prune_lr: 0.000305
+        prune_scheduler: false
+        prune_step: 3
+        prune_warmup: 0.15
+        prune_weight_decay: 0.325
+        pruner_type: base
+        scheduler: false
+        warmup: 0.15
+        weight_decay: 0.000585
+    0.7:
+        T_0: 90.0
+        imp_type: group
+        isomorphic: true
+        lr: 0.000277
+        prune_T_0: .nan
+        prune_lr: 2.95e-05
+        prune_scheduler: false
+        prune_step: 3
+        prune_warmup: 0.15
+        prune_weight_decay: 0.627
+        pruner_type: base
+        scheduler: true
+        warmup: 0.05
+        weight_decay: 0.000807
+sage:
+    epochs: 1000
+    hidden: 64
+    dropout: 0.2
+    num_layers: 6
+    norm: layer
+    residual: true
+    0.5:
+        T_0: 30.0
+        imp_type: lamp
+        isomorphic: false
+        lr: 0.000194
+        prune_T_0: 30.0
+        prune_lr: 0.00232
+        prune_scheduler: true
+        prune_step: 1
+        prune_warmup: 0.15
+        prune_weight_decay: 1.76e-05
+        pruner_type: base
+        scheduler: true
+        warmup: 0.1
+        weight_decay: 0.000132
+    0.6:
+        T_0: .nan
+        imp_type: group
+        isomorphic: true
+        lr: 0.00231
+        prune_T_0: .nan
+        prune_lr: 0.000116
+        prune_scheduler: false
+        prune_step: 2
+        prune_warmup: 0.0
+        prune_weight_decay: 0.000128
+        pruner_type: base
+        scheduler: false
+        warmup: 0.15
+        weight_decay: 0.00033
+    0.7:
+        T_0: 60.0
+        imp_type: group
+        isomorphic: true
+        lr: 0.00188
+        prune_T_0: .nan
+        prune_lr: 0.000269
+        prune_scheduler: false
+        prune_step: 3
+        prune_warmup: 0.05
+        prune_weight_decay: 0.000226
+        pruner_type: group
+        scheduler: true
+        warmup: 0.0
+        weight_decay: 0.00171
+gin:
+    dropout: 0.3
+    epochs: 1000
+    hidden: 256
+    lr: 0.001
+    norm: layer
+    num_layers: 2
+    residual: false
+    weight_decay: 5e-5
+cheb:
+    K: 3
+    dropout: 0.8
+    epochs: 1500
+    hidden: 512
+    lr: 0.001
+    norm: layer
+    num_layers: 2
+    residual: false
+    weight_decay: 5e-4

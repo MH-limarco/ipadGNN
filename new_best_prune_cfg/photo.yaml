@@ -1,0 +1,116 @@
+seed: 42
+dataset:
+  split: fixed
+
+gcn:
+    epochs: 1000
+    hidden: 256
+    dropout: 0.5
+    num_layers: 6
+    norm: layer
+    residual: True
+
+    0.5:
+      lr: 0.0017
+      weight_decay: 0.000105
+      scheduler: False
+      warnup: null
+
+      pruner_type: bnscale
+      imp_type: group
+      isomorphic: True
+      prune_step: 1
+
+      prune_lr: 0.000675
+      prune_weight_decay: 0.00175
+      prune_scheduler: False
+      prune_warmup: null
+
+
+    0.6:
+      lr: 0.0046
+      weight_decay: 2.55e-05
+      scheduler: False
+      warnup: null
+
+      pruner_type: base
+      imp_type: lamp
+      isomorphic: Flase
+      prune_step: 1
+
+      prune_lr: 0.0012
+      prune_weight_decay: 0.006
+      prune_scheduler: True
+      prune_warmup: 0.3
+
+    0.7:
+      lr: 0.0028
+      weight_decay: 2.8e-05
+      scheduler: False
+      warnup: null
+
+      pruner_type: bnscale
+      imp_type: lamp
+      isomorphic: False
+      prune_step: 3
+
+      prune_lr: 0.00042
+      prune_weight_decay: 4.75e-05
+      prune_scheduler: False
+      prune_warmup: null
+
+sage:
+    epochs: 1000
+    hidden: 64
+    dropout: 0.2
+    num_layers: 6
+    norm: layer
+    residual: True
+
+    0.5:
+      lr: 0.00016
+      weight_decay: 0.0011
+      scheduler: False
+      warnup: null
+
+      pruner_type: group
+      imp_type: fpgm
+      isomorphic: True
+      prune_step: 2
+
+      prune_lr: 0.00018
+      prune_weight_decay: 0.000375
+      prune_scheduler: True
+      prune_warmup: 0.05
+
+    0.6:
+      lr: 0.00081
+      weight_decay: 2.75e-05
+      scheduler: True
+      warnup: 0.3
+
+      pruner_type: bnscale
+      imp_type: group
+      isomorphic: False
+      prune_step: 2
+
+      prune_lr: 0.00032
+      prune_weight_decay: 0.0015
+      prune_scheduler: False
+      prune_warmup: null
+
+    0.7:
+      lr: 0.00058
+      weight_decay: 5.1e-05
+      scheduler: True
+      warnup: 0.15
+
+      pruner_type: base
+      imp_type: group
+      isomorphic: True
+      prune_step: 2
+
+      prune_lr: 0.0025
+      prune_weight_decay: 0.00075
+      prune_scheduler: True
+      prune_warmup: 0.15

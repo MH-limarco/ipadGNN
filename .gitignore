@@ -1,0 +1,6 @@
+/engine/save_full_pt/
+
+.__pycache__/
+*.pyc
+*.pt
+*.db

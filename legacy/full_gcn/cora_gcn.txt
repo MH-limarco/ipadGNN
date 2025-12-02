@@ -1,0 +1,104 @@
+model test_acc test_acc_trim train_time
+gnn_0.0,0.8226 ± 0.005,0.8222 ± 0.003,7.0816 ± 0.175
+model test_acc test_acc_trim train_time
+gnn_fp_0.3,0.8157 ± 0.005,0.8152 ± 0.003,6.9921 ± 0.113
+model test_acc test_acc_trim train_time
+gnn_apcfi_0.3,0.8122 ± 0.005,0.8113 ± 0.002,6.9983 ± 0.060
+model test_acc test_acc_trim train_time
+gnn_zero_0.3,0.8081 ± 0.006,0.8076 ± 0.003,7.0385 ± 0.087
+model test_acc test_acc_trim train_time
+gnn_fp_0.6,0.8052 ± 0.005,0.8046 ± 0.003,6.9490 ± 0.059
+model test_acc test_acc_trim train_time
+gnn_apcfi_0.6,0.8053 ± 0.005,0.8053 ± 0.004,7.0294 ± 0.062
+model test_acc test_acc_trim train_time
+gnn_zero_0.6,0.7948 ± 0.005,0.7948 ± 0.003,7.7072 ± 0.116
+model test_acc test_acc_trim train_time
+gnn_fp_0.9,0.7708 ± 0.005,0.7705 ± 0.004,7.6318 ± 0.066
+model test_acc test_acc_trim train_time
+gnn_apcfi_0.9,0.7792 ± 0.004,0.7795 ± 0.003,7.5824 ± 0.073
+model test_acc test_acc_trim train_time
+gnn_zero_0.9,0.7046 ± 0.008,0.7039 ± 0.004,7.7162 ± 0.165
+model test_acc test_acc_trim train_time
+gnn_fp_0.995,0.7584 ± 0.004,0.7580 ± 0.003,7.5906 ± 0.062
+model test_acc test_acc_trim train_time
+gnn_apcfi_0.995,0.7551 ± 0.005,0.7555 ± 0.003,7.5826 ± 0.056
+model test_acc test_acc_trim train_time
+gnn_zero_0.995,0.5313 ± 0.013,0.5320 ± 0.011,7.7342 ± 0.170
+model test_acc test_acc_trim train_time
+classic_gnn_0.0,0.8091 ± 0.004,0.8096 ± 0.003,5.8463 ± 0.111
+model test_acc test_acc_trim train_time
+classic_gnn_fp_0.3,0.8057 ± 0.005,0.8060 ± 0.004,5.5381 ± 0.075
+model test_acc test_acc_trim train_time
+classic_gnn_apcfi_0.3,0.7993 ± 0.007,0.7993 ± 0.005,5.5499 ± 0.087
+model test_acc test_acc_trim train_time
+classic_gnn_zero_0.3,0.7887 ± 0.005,0.7885 ± 0.004,5.6498 ± 0.166
+model test_acc test_acc_trim train_time
+classic_gnn_fp_0.6,0.8091 ± 0.004,0.8088 ± 0.003,5.5811 ± 0.093
+model test_acc test_acc_trim train_time
+classic_gnn_apcfi_0.6,0.8063 ± 0.005,0.8065 ± 0.003,5.5489 ± 0.065
+model test_acc test_acc_trim train_time
+classic_gnn_zero_0.6,0.7681 ± 0.005,0.7676 ± 0.004,5.7106 ± 0.151
+model test_acc test_acc_trim train_time
+classic_gnn_fp_0.9,0.7653 ± 0.004,0.7651 ± 0.004,5.6232 ± 0.071
+model test_acc test_acc_trim train_time
+classic_gnn_apcfi_0.9,0.7779 ± 0.003,0.7778 ± 0.002,5.6258 ± 0.057
+model test_acc test_acc_trim train_time
+classic_gnn_zero_0.9,0.6407 ± 0.005,0.6408 ± 0.004,5.7373 ± 0.156
+model test_acc test_acc_trim train_time
+classic_gnn_fp_0.995,0.7672 ± 0.002,0.7670 ± 0.001,5.7412 ± 0.058
+model test_acc test_acc_trim train_time
+classic_gnn_apcfi_0.995,0.7630 ± 0.003,0.7632 ± 0.002,5.7009 ± 0.084
+model test_acc test_acc_trim train_time
+classic_gnn_zero_0.995,0.4154 ± 0.004,0.4152 ± 0.003,6.3582 ± 0.291
+model test_acc test_acc_trim train_time
+prune_gnn_0.0,0.8197 ± 0.005,0.8196 ± 0.004,8.3312 ± 0.116
+model test_acc test_acc_trim train_time
+prune_gnn_fp_0.3,0.8112 ± 0.008,0.8114 ± 0.006,8.2833 ± 0.076
+model test_acc test_acc_trim train_time
+prune_gnn_apcfi_0.3,0.8076 ± 0.006,0.8075 ± 0.004,8.2279 ± 0.122
+model test_acc test_acc_trim train_time
+prune_gnn_zero_0.3,0.8076 ± 0.006,0.8076 ± 0.005,8.4280 ± 0.204
+model test_acc test_acc_trim train_time
+prune_gnn_fp_0.6,0.8046 ± 0.005,0.8044 ± 0.003,8.2897 ± 0.153
+model test_acc test_acc_trim train_time
+prune_gnn_apcfi_0.6,0.8085 ± 0.006,0.8088 ± 0.005,8.2205 ± 0.125
+model test_acc test_acc_trim train_time
+prune_gnn_zero_0.6,0.7917 ± 0.006,0.7913 ± 0.003,8.4762 ± 0.261
+model test_acc test_acc_trim train_time
+prune_gnn_fp_0.9,0.7697 ± 0.005,0.7694 ± 0.003,8.0449 ± 0.126
+model test_acc test_acc_trim train_time
+prune_gnn_apcfi_0.9,0.7806 ± 0.004,0.7802 ± 0.003,8.1066 ± 0.169
+model test_acc test_acc_trim train_time
+prune_gnn_zero_0.9,0.7081 ± 0.004,0.7084 ± 0.003,8.2263 ± 0.113
+model test_acc test_acc_trim train_time
+prune_gnn_fp_0.995,0.7591 ± 0.004,0.7588 ± 0.002,8.0311 ± 0.109
+model test_acc test_acc_trim train_time
+prune_gnn_apcfi_0.995,0.7561 ± 0.004,0.7559 ± 0.003,8.0300 ± 0.131
+model test_acc test_acc_trim train_time
+prune_gnn_zero_0.995,0.5744 ± 0.018,0.5770 ± 0.009,8.1854 ± 0.236
+model test_acc test_acc_trim train_time
+classic_prune_gnn_0.0,0.8072 ± 0.006,0.8081 ± 0.004,6.8333 ± 0.465
+model test_acc test_acc_trim train_time
+classic_prune_gnn_fp_0.3,0.8040 ± 0.007,0.8039 ± 0.004,6.4562 ± 0.111
+model test_acc test_acc_trim train_time
+classic_prune_gnn_apcfi_0.3,0.7976 ± 0.007,0.7971 ± 0.005,6.5960 ± 0.120
+model test_acc test_acc_trim train_time
+classic_prune_gnn_zero_0.3,0.7869 ± 0.007,0.7864 ± 0.006,6.7019 ± 0.161
+model test_acc test_acc_trim train_time
+classic_prune_gnn_fp_0.6,0.8074 ± 0.006,0.8076 ± 0.005,6.6019 ± 0.086
+model test_acc test_acc_trim train_time
+classic_prune_gnn_apcfi_0.6,0.8077 ± 0.004,0.8075 ± 0.004,6.1083 ± 0.124
+model test_acc test_acc_trim train_time
+classic_prune_gnn_zero_0.6,0.7660 ± 0.006,0.7665 ± 0.003,6.2645 ± 0.226
+model test_acc test_acc_trim train_time
+classic_prune_gnn_fp_0.9,0.7671 ± 0.004,0.7664 ± 0.002,6.5705 ± 0.067
+model test_acc test_acc_trim train_time
+classic_prune_gnn_apcfi_0.9,0.7781 ± 0.004,0.7779 ± 0.003,6.4044 ± 0.152
+model test_acc test_acc_trim train_time
+classic_prune_gnn_zero_0.9,0.6413 ± 0.003,0.6415 ± 0.003,6.7179 ± 0.238
+model test_acc test_acc_trim train_time
+classic_prune_gnn_fp_0.995,0.7667 ± 0.004,0.7666 ± 0.003,6.6132 ± 0.103
+model test_acc test_acc_trim train_time
+classic_prune_gnn_apcfi_0.995,0.7618 ± 0.002,0.7615 ± 0.001,6.3764 ± 0.125
+model test_acc test_acc_trim train_time
+classic_prune_gnn_zero_0.995,0.4427 ± 0.023,0.4429 ± 0.019,6.3383 ± 0.260

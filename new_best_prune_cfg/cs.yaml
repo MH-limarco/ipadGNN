@@ -1,0 +1,118 @@
+seed: 42
+dataset:
+  split: fixed
+
+gcn:
+    epochs: 1500
+    hidden: 512
+    dropout: 0.3
+    num_layers: 2
+    norm: layer
+    residual: True
+
+    0.5:
+        lr: 0.0006
+
+        weight_decay: 0.00025
+        scheduler: FALSe
+        warnup: null
+
+        pruner_type: group
+        imp_type: lamp
+        isomorphic: False
+        prune_step: 2
+
+        prune_lr: 9e-05
+        prune_weight_decay: 0.00062
+        prune_scheduler: False
+        prune_warmup: null
+
+    0.6:
+        lr: 0.00205
+        weight_decay: 1.2e-05
+        scheduler: False
+        warnup: null
+
+        pruner_type: base
+        imp_type: lamp
+        isomorphic: True
+        prune_step: 2
+
+        prune_lr: 9e-05
+        prune_weight_decay: 0.042
+        prune_scheduler: False
+        prune_warmup: null
+
+    0.7:
+        lr: 0.00012
+        weight_decay: 0.0004
+        scheduler: True
+        warnup: 0.5
+
+        pruner_type: bnscale
+        imp_type: fpgm
+        isomorphic: False
+        prune_step: 2
+
+        prune_lr: 0.00072
+        prune_weight_decay: 4e-05
+        prune_scheduler: False
+        prune_warmup: null
+
+
+sage:
+    epochs: 1500
+    hidden: 512
+    dropout: 0.5
+    num_layers: 2
+    norm: layer
+    residual: True
+
+    0.5:
+        lr: 1.45e-05
+        weight_decay: 0.0004
+        scheduler: True
+        warnup: 0.0
+
+        pruner_type: base
+        imp_type: group
+        isomorphic: Ture
+        prune_step: 2
+
+        prune_lr: 0.001
+        prune_weight_decay: 0.00015
+        prune_scheduler: False
+        prune_warmup: null
+
+
+    0.6:
+        lr: 0.0003
+        weight_decay: 4.15e-05
+        scheduler: False
+        warnup: null
+
+        pruner_type: group
+        imp_type: group
+        isomorphic: True
+        prune_step: 1
+
+        prune_lr: 0.00013
+        prune_weight_decay: 0.00315
+        prune_scheduler: False
+        prune_warmup: null
+
+    0.7:
+        lr: 0.00475
+        weight_decay: 0.000235
+        scheduler: False
+        warnup: null
+
+        pruner_type: bnscale
+        imp_type: lamp
+        isomorphic: Flase
+        prune_step: 2
+
+        prune_lr: 0.0025
+        prune_weight_decay: 0.0255
+        prune_scheduler: False
+        prune_warmup: null

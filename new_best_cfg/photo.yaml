@@ -1,0 +1,44 @@
+seed: 42
+dataset:
+  split: fixed
+
+gcn:
+    epochs: 1000
+    hidden: 256
+    dropout: 0.5
+    num_layers: 6
+    lr: 0.001
+    weight_decay: 5e-5
+    norm: layer
+    residual: True
+
+sage:
+    epochs: 1000
+    hidden: 64
+    dropout: 0.2
+    num_layers: 6
+    lr: 0.001
+    weight_decay: 5e-5
+    norm: layer
+    residual: True
+
+gin:
+    epochs: 1000
+    hidden: 256
+    dropout: 0.3
+    num_layers: 2
+    lr: 0.001
+    weight_decay: 5e-5
+    norm: layer
+    residual: False
+
+cheb:
+    epochs: 1500
+    hidden: 512
+    dropout: 0.8
+    num_layers: 2
+    lr: 0.001
+    weight_decay: 5e-4
+    norm: layer
+    residual: False
+    K: 3

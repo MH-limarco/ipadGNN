@@ -1,0 +1,3 @@
+scheduler,prune_mlp,lr,weight_decay,mpp_lr,mpp_weight_decay,prune_step,prune_rate,prune_type,imp_type,isomorphic,mpp_scheduler,values,mpp_warnup
+False,False,0.008611985392007906,0.008101912578916362,0.0013994623837832064,1.548004282906345e-05,3,0.5,bnscale,group,True,False,"[0.7276666666666666, 0.5]",
+False,False,0.004141482991634881,0.00818742498547691,9.827362083157036e-05,0.003935167032024727,3,0.9,group,fpgm,False,True,"[0.7229999999999999, 0.9]",0.4

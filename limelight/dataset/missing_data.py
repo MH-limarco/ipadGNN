@@ -18,8 +18,11 @@ class MissingDataHandler:
         if self.missing_type == "structural":
             mask = torch.bernoulli(torch.full((n_nodes, 1), 1 - self.missing_rate)).bool()
             return mask.repeat(1, n_features)  # 讓整個節點的特徵一起缺失
-        else:
+        elif self.missing_type == "uniform":
             return torch.bernoulli(torch.full((n_nodes, n_features), 1 - self.missing_rate)).bool()
+        else:
+            raise ValueError(f"未知的缺失類型: {self.missing_type}")
+
 
     def apply_missing(self, data):
         """

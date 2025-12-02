@@ -1,0 +1,88 @@
+aiohappyeyeballs==2.6.1
+aiohttp==3.11.14
+aiosignal==1.3.2
+alembic==1.15.2
+attrs==25.3.0
+beautifulsoup4==4.13.3
+Brotli @ file:///croot/brotli-split_1736182456865/work
+certifi @ file:///croot/certifi_1738623731865/work/certifi
+charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
+choreographer==1.0.9
+colorlog==6.9.0
+contourpy==1.3.2
+cycler==0.12.1
+filelock @ file:///croot/filelock_1700591183607/work
+fonttools==4.58.4
+frozenlist==1.5.0
+fsspec==2025.3.0
+gdown==5.2.0
+gmpy2 @ file:///croot/gmpy2_1738085463648/work
+greenlet==3.2.1
+idna @ file:///croot/idna_1714398848350/work
+Jinja2 @ file:///croot/jinja2_1741710844255/work
+joblib==1.4.2
+kaleido==1.0.0
+kiwisolver==1.4.8
+littleutils==0.2.4
+logistro==1.1.0
+Mako==1.3.10
+markdown-it-py==3.0.0
+MarkupSafe @ file:///croot/markupsafe_1738584038848/work
+matplotlib==3.10.3
+mdurl==0.1.2
+mkl-service==2.4.0
+mkl_fft @ file:///io/mkl313/mkl_fft_1730824109137/work
+mkl_random @ file:///io/mkl313/mkl_random_1730823916628/work
+mpmath @ file:///croot/mpmath_1690848262763/work
+multidict==6.2.0
+narwhals==1.37.1
+networkx @ file:///croot/networkx_1737039604450/work
+numpy @ file:///croot/numpy_and_numpy_base_1725470312869/work/dist/numpy-2.0.1-cp311-cp311-linux_x86_64.whl#sha256=372b9067cf9c96d8662c6f20ef49eeda43f0f8d2f074820224c954d8d8fae7bc
+ogb==1.3.6
+optuna==4.3.0
+orjson==3.10.18
+outdated==0.2.2
+packaging==25.0
+pandas==2.2.3
+pillow @ file:///croot/pillow_1738010226202/work
+plotext==5.3.2
+plotly==6.2.0
+propcache==0.3.1
+psutil==7.0.0
+pyg-lib==0.4.0+pt25cu124
+Pygments==2.19.1
+pylibcugraphops-cu12==24.12.0
+pyparsing==3.2.3
+PySocks @ file:///work/ci_py311/pysocks_1676822712504/work
+python-dateutil==2.9.0.post0
+pytz==2025.2
+PyYAML @ file:///croot/pyyaml_1728657952215/work
+requests @ file:///croot/requests_1730999120400/work
+rich==14.0.0
+scikit-learn==1.6.1
+scipy==1.15.2
+seaborn==0.13.2
+simplejson==3.20.1
+six==1.17.0
+soupsieve==2.6
+SQLAlchemy==2.0.40
+sympy==1.13.1
+tabulate==0.9.0
+threadpoolctl==3.6.0
+torch==2.5.0
+torch-flops==0.3.6
+torch-geometric==2.6.1
+torch-pruning==1.5.2
+torch_cluster==1.6.3+pt25cu124
+torch_scatter==2.1.2+pt25cu124
+torch_sparse==0.6.18+pt25cu124
+torch_spline_conv==1.2.2+pt25cu124
+torchaudio==2.5.0
+torcheval==0.0.7
+torchvision==0.20.0
+tqdm==4.67.1
+triton==3.1.0
+typing_extensions @ file:///croot/typing_extensions_1734714854207/work
+tzdata==2025.2
+urllib3 @ file:///croot/urllib3_1737133630106/work
+yarl==1.18.3

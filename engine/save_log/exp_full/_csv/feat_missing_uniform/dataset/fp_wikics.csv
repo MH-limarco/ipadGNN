@@ -1,0 +1,7 @@
+model,full_feat,30% missing,60% missing,90% missing,99.5% missing
+PRISM(gcn),0.8111,0.803,0.7946,0.7697,0.7103
+PRISM(sage),0.796,0.7928,0.7862,0.7663,0.7031
+classic_gnn(gcn),0.7907,0.79,0.7869,0.7647,0.7294
+classic_gnn(sage),0.8017,0.7907,0.7831,0.7674,0.7147
+truned_gnn(mpp)(gcn),0.8052,0.8002,0.7924,0.7742,0.7465
+truned_gnn(mpp)(sage),0.8053,0.7977,0.7895,0.7809,0.7478

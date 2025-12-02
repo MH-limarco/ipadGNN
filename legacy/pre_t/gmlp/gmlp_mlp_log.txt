@@ -1,0 +1,12 @@
+data test_acc
+cora,0.5403 ± 0.013
+data test_acc
+citeseer,0.4848 ± 0.011
+data test_acc
+pubmed,0.5342 ± 0.032
+data test_acc
+photo,0.8909 ± 0.003
+data test_acc
+computers,0.8074 ± 0.003
+data test_acc
+cs,0.9269 ± 0.001

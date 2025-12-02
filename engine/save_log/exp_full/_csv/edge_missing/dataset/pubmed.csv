@@ -1,0 +1,7 @@
+model,full_edge,30% missing,60% missing,90% missing
+PRISM(gcn),0.8209,0.8205,0.7887,0.7411
+PRISM(sage),0.7859,0.8185,0.8057,0.7451
+classic_gnn(gcn),0.7978,0.7869,0.7409,0.6951
+classic_gnn(sage),0.7271,0.7134,0.6857,0.6656
+truned_gnn(mpp)(gcn),0.8043,0.7964,0.7558,0.7057
+truned_gnn(mpp)(sage),0.7696,0.754,0.7387,0.704

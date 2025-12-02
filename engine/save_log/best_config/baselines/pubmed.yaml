@@ -1,0 +1,23 @@
+seed: 123
+dataset:
+  split: class
+  label_num_per_class: 20
+  valid_num: 500
+  test_num: 1000
+
+sgformer:
+    epochs: 500
+    backbone: gcn
+    hidden: 64
+    dropout: 0.5
+    num_layers: 4
+    lr: 0.05
+    weight_decay: 5e-4
+
+    method: ours
+    ours_layers: 1
+    graph_weight: 0.8
+    ours_dropout: 0.3
+    residual: True
+    alpha: 0.5
+    ours_weight_decay: 0.01

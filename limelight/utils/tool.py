@@ -134,6 +134,5 @@ def extract_init_args(obj: Any) -> Dict[str, Any]:
         if hasattr(obj, name):
             params[name] = getattr(obj, name)
         else:
-            # 如果實例上沒有這個屬性，就拿預設值
             params[name] = param.default if param.default is not inspect._empty else None
     return params

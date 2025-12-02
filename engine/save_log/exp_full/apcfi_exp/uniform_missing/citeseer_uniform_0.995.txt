@@ -1,0 +1,8 @@
+model acc acc_trim time
+fp,0.6747 ± 0.0228,0.6730 ± 0.0156,0.0589 ± 0.0036
+model acc acc_trim time
+pcfi,0.6860 ± 0.0171,0.6873 ± 0.0085,252.8248 ± 2.2939
+model acc acc_trim time
+apcfi,0.6837 ± 0.0184,0.6865 ± 0.0111,0.3524 ± 0.0231
+model acc acc_trim time
+apcfi*,0.6831 ± 0.0201,0.6859 ± 0.0148,0.3918 ± 0.0207

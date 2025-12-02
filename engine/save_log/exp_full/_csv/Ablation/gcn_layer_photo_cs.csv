@@ -1,0 +1,6 @@
+,,,Photo,,,CS,,
+tunedGNN,MPP,MP-RKD,Accuracy,training speed (epoch/s),inference time (ms),Accuracy,training speed (epoch/s),inference time (ms)
+,,,91.36,121.73,3.47,90.22,46.44,8.75
+Y,,,95.52,30.72,11.38,95.94,21.2,15.76
+Y,Y,,95.86,44.2,8.21,95.95,49.8,7.99
+Y,Y,Y,96.16,90.57(44.2),2.35,96.13,51.66(49.80),6.02
