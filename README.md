@@ -1,8 +1,8 @@
-# iPaDGNN: End-to-End Graph Learning Framework for Incomplete Data
+# iPaDGNN: End-to-End Graph Learning Framework for Incomplete Data [[Paper]](https://thesis.lib.ncku.edu.tw/thesis/detail/df9bd469e5148d2d9ff385f47cd10220/)
 
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![PyG](https://img.shields.io/badge/PyG-2.x-3C2179?style=for-the-badge&logo=python&logoColor=white)](https://pytorch-geometric.readthedocs.io/)
-[![Optuna](https://img.shields.io/badge/Optuna-Automated-4A73B2?style=for-the-badge)](https://optuna.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.5.0-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![PyG](https://img.shields.io/badge/PyG-2.6.1-3C2179?style=for-the-badge&logo=python&logoColor=white)](https://pytorch-geometric.readthedocs.io/)
+[![Optuna](https://img.shields.io/badge/Optuna-4.3.0-4A73B2?style=for-the-badge)](https://optuna.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](./LICENSE)
 
 > **"Turning Dirty Data into Efficient Models."**
@@ -26,7 +26,7 @@ The framework consists of three core modules designed to work in synergy:
 ### 1. Ultra-Fast Imputation (APCFI)
 * **Problem:** Traditional methods (like PCFI) use slow BFS for shortest-path calculation ($O(N^3)$ complexity).
 * **Solution:** Implemented **Vectorized Matrix Operations** and **Sliding-Window Batching** to handle large graphs on limited VRAM.
-* **Result:** **200x Speedup** (85s $\to$ 0.39s on CiteSeer) with automated OOM (Out-of-Memory) protection.
+* **Result:** **200x Speedup** (85s $\to$ 0.39s on CiteSeer).
 
 ### 2. Resource-Constrained Optimization
 * **Mixed Precision Training (AMP):** Optimized for consumer-grade GPUs (e.g., RTX 4090), reducing memory usage while maintaining accuracy.
@@ -60,6 +60,8 @@ iPaD-GNN/
 └── requirements.txt    # Python dependencies
 ```
 
+
+## 📦 Installation
 ```Bash
 # Clone the repository
 git clone [https://github.com/your-username/iPaDGNN.git](https://github.com/your-username/iPaDGNN.git)
@@ -69,7 +71,7 @@ cd iPaDGNN
 pip install -r requirements.txt
 ```
 
-CLI
+## 🚴‍♂️ Running Experiments
 ```Bash
 python enginne/main.py 
 ```
@@ -79,7 +81,7 @@ python enginne/main.py
 - Optimization: Torch-Pruning, Optuna
 
 📜 Citation
-If you find this code useful, please cite our work:
+If you find this code useful, please cite [our work](https://thesis.lib.ncku.edu.tw/thesis/detail/df9bd469e5148d2d9ff385f47cd10220/):
 ```BibTeX
 @article{li2025ipadgnn,
   title={iPaDGNN: Joint Learning with Imputation, Pruning, and Distillation},
